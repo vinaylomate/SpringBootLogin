@@ -8,6 +8,7 @@ import com.example.demo.registration.token.ConfirmationToken;
 import com.example.demo.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -32,12 +33,16 @@ public class RegistrationService {
                         request.getFirstName(),
                         request.getLastName(),
                         request.getEmail(),
+                        request.getUsername(),
                         request.getPassword(),
                         AppUserRole.USER
                 )
         );
         String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
+//        RedirectView redirectView = new RedirectView();
+//        redirectView.setUrl("");
+//        return redirectView;
         return token;
     }
 

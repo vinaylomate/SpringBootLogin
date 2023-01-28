@@ -2,6 +2,7 @@ package com.example.demo.registration;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 @RequestMapping(path = "/api/v1/registration")

@@ -17,7 +17,8 @@ public class ConfirmationToken {
     @Id
     @SequenceGenerator(
             name = "confirmation_token_sequence",
-            sequenceName = "confirmation_token_sequence"
+            sequenceName = "confirmation_token_sequence",
+            allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
