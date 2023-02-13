@@ -1,6 +1,8 @@
 package com.example.demo.master.company;
 
 import com.example.demo.master.location.Location;
+import com.example.demo.master.product.Product;
+import com.example.demo.master.transaction.Transaction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode
-public class Company {
+public class Company implements Serializable {
 
     @Id
     @SequenceGenerator(
@@ -30,44 +32,44 @@ public class Company {
             generator = "company_sequence"
     )
     @Column(
-            name = "companyId",
+            name = "company_id",
             updatable = false,
             nullable = false
     )
     private Long id;
     @Column(
-            name = "companyCode",
+            name = "company_code",
             nullable = false
     )
     private String companyCode;
     @Column(
-            name = "companyName",
+            name = "company_name",
             nullable = false
     )
     private String companyName;
 
     @Column(
-            name = "companyDescription",
+            name = "company_description",
             nullable = false
     )
     private String companyDescription;
 
     @JsonIgnore
-    @ManyToMany(
-            fetch = FetchType.LAZY
+    @OneToMany(
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
+            fetch = FetchType.LAZY,
+            mappedBy = "company"
     )
-    @JoinTable(
-            name = "store",
-            joinColumns = @JoinColumn(
-                    name = "company_id",
-                    foreignKey = @ForeignKey(name = "store_company_id_fk")
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "location_id",
-                    foreignKey = @ForeignKey(name = "store_location_id_fk")
-            )
+    private List<Location> locations = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
+            fetch = FetchType.LAZY,
+            mappedBy = "company"
     )
-    public List<Location> locationList;
+    private List<Product> products = new ArrayList<>();
 
     public Company(String companyCode, String companyName, String companyDescription) {
         this.companyCode = companyCode;
@@ -76,13 +78,31 @@ public class Company {
     }
 
     public void addLocation(Location location) {
-        locationList.add(location);
-        location.getCompanies().add(this);
+        if(!this.locations.contains(location)) {
+            this.locations.add(location);
+            location.setCompany(this);
+        }
     }
 
     public void removeLocation(Location location) {
-        locationList.remove(location);
-        location.getCompanies().remove(this);
+        if(this.locations.contains(location)) {
+            this.locations.add(location);
+            location.setCompany(null);
+        }
+    }
+
+    public void addProduct(Product product) {
+        if(!this.products.contains(product)) {
+            this.products.add(product);
+            product.setCompany(this);
+        }
+    }
+
+    public void removeProduct(Product product) {
+        if(this.products.contains(product)) {
+            this.products.add(product);
+            product.setCompany(null);
+        }
     }
 }
 

@@ -3,6 +3,7 @@ package com.example.demo.master.company;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -21,5 +22,10 @@ public class CompanyController {
     public List<Company> showAllCompany() {
 
         return companyService.showAllCompany();
+    }
+
+    @GetMapping(path = "getCompany/{companyCode}")
+    public Company showCompany(@PathVariable String companyCode) {
+        return companyService.showCompany(companyCode);
     }
 }

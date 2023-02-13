@@ -33,4 +33,8 @@ public class CompanyService {
         List<Company> companies = companyRepository.findAll();
         return companies;
     }
+
+    public Company showCompany(String companyCode) {
+        return companyRepository.findByCompanyCode(companyCode);
+    }
 }

@@ -1,13 +1,19 @@
 package com.example.demo.master.location;
 
 import com.example.demo.master.company.Company;
+import com.example.demo.master.entrytype.EntryType;
+import com.example.demo.master.inventory.Inventory;
+import com.example.demo.master.product.Product;
+import com.example.demo.master.rack.Rack;
 import com.example.demo.master.storeType.StoreType;
+import com.example.demo.master.transaction.Transaction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +22,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Location {
+public class Location implements Serializable {
 
     @Id
     @SequenceGenerator(
@@ -33,10 +39,7 @@ public class Location {
             updatable = false
     )
     private Long id;
-    @Column(
-            name = "location_company_code",
-            nullable = false
-    )
+    @Transient
     private String companyCode;
     @Transient
     private String storeTypeName;
@@ -52,11 +55,17 @@ public class Location {
             name = "location_description"
     )
     private String locationDescription;
-    @ManyToMany(
-            fetch = FetchType.LAZY,
-            mappedBy = "locationList"
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(
+            name = "company_code",
+            referencedColumnName = "company_code",
+            foreignKey = @ForeignKey(
+                    name = "company_location_fk"
+            )
     )
-    private List<Company> companies = new ArrayList<>();
+    private Company company;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(
             name = "store_type_id",
@@ -68,11 +77,55 @@ public class Location {
     )
     private StoreType storeType;
 
+    @JsonIgnore
+    @OneToMany(
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
+            fetch = FetchType.LAZY,
+            mappedBy = "location"
+    )
+    private List<Rack> racks = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(
+            cascade = CascadeType.PERSIST,
+            mappedBy = "location"
+    )
+    private List<Transaction> transactions = new ArrayList<>();
+
     public Location(String companyCode, String storeTypeName, String locationCode, String locationName, String locationDescription) {
         this.companyCode = companyCode;
         this.storeTypeName = storeTypeName;
         this.locationCode = locationCode;
         this.locationName = locationName;
         this.locationDescription = locationDescription;
+    }
+
+    public void addRack(Rack rack) {
+        if(!this.racks.contains(rack)) {
+            this.racks.add(rack);
+            rack.setLocation(this);
+        }
+    }
+
+    public void removeRack(Rack rack) {
+        if(this.racks.contains(rack)) {
+            this.racks.add(rack);
+            rack.setLocation(null);
+        }
+    }
+
+    public void addTransaction(Transaction transaction) {
+        if(!this.transactions.contains(transaction)) {
+            this.transactions.add(transaction);
+            transaction.setLocation(this);
+        }
+    }
+
+    public void removeTransaction(Transaction transaction) {
+        if(this.transactions.contains(transaction)) {
+            this.transactions.remove(transaction);
+            transaction.setLocation(null);
+        }
     }
 }

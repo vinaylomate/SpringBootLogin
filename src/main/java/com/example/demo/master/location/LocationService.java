@@ -2,6 +2,7 @@ package com.example.demo.master.location;
 
 import com.example.demo.master.company.Company;
 import com.example.demo.master.company.CompanyRepository;
+import com.example.demo.master.entrytype.EntryType;
 import com.example.demo.master.storeType.StoreType;
 import com.example.demo.master.storeType.StoreTypeRepository;
 import lombok.AllArgsConstructor;
@@ -29,7 +30,27 @@ public class LocationService {
         return "location added";
     }
 
-    public List<Location> showAllLocations() {
-        return locationRepository.findAll();
+    public List<LocationRegister> showAllLocations() {
+        return locationRepository.findAllLocations();
+    }
+
+    public List<Location> showLocationByCompany(String companyCode) {
+        return locationRepository.findLocationByCompany(companyCode);
+    }
+
+    public List<StoreType> showStoreTypeByLocation(String locationCode) {
+        return locationRepository.findStoreTypeByLocationCode(locationCode);
+    }
+
+    public List<Location> showLocationByStoreTypeAndCompany(String companyCode, String storeTypeName) {
+        return locationRepository.findLocationByStoreTypeAndCompany(companyCode, storeTypeName);
+    }
+
+    public Long showCountByLocationCode(String locationCode) {
+        return locationRepository.findCountByLocationCodeAndStoreType(locationCode);
+    }
+
+    public Location showLocationByCode(String locationCode) {
+        return locationRepository.findByLocationCode(locationCode);
     }
 }
