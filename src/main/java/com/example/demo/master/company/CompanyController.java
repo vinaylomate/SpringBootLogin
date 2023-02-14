@@ -15,6 +15,7 @@ public class CompanyController {
 
     @PostMapping(path = "/company")
     public String addCompany(@RequestBody Company company) {
+
         return companyService.addCompany(company);
     }
 

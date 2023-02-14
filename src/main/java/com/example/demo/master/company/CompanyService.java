@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CompanyService {
 
-    CompanyRepository companyRepository;
+     private final CompanyRepository companyRepository;
 
     public String addCompany(Company company) {
         company.setCompanyName(company.getCompanyName().trim());
