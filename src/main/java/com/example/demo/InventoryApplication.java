@@ -5,11 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class DemoApplication extends SpringBootServletInitializer {
+public class InventoryApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(InventoryApplication.class, args);
 	}
 
 }
