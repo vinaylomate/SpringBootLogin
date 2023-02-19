@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "uom")
-public class UOM implements Serializable {
+public class UOM {
 
     @Id
     @SequenceGenerator(

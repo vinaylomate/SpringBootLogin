@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Transaction implements Serializable {
+public class Transaction {
 
     @Id
     @SequenceGenerator(
@@ -126,8 +126,8 @@ public class Transaction implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(
-            name = "sage_code",
-            referencedColumnName = "sage_code",
+            name = "product_id",
+            referencedColumnName = "product_id",
             foreignKey = @ForeignKey(
                     name = "transaction_product_fk"
             )
@@ -136,8 +136,8 @@ public class Transaction implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(
-            name = "location_code",
-            referencedColumnName = "location_code",
+            name = "location_id",
+            referencedColumnName = "location_id",
             foreignKey = @ForeignKey(
                     name = "transaction_location_fk"
             )
@@ -146,8 +146,8 @@ public class Transaction implements Serializable {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(
-            name = "category_name",
-            referencedColumnName = "category_name",
+            name = "category_id",
+            referencedColumnName = "category_id",
             foreignKey = @ForeignKey(
                     name = "transaction_category_fk"
             )

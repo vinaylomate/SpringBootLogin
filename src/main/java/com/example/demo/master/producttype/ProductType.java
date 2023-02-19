@@ -46,11 +46,11 @@ public class ProductType {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(
-            name = "category_name",
+            name = "category_id",
             nullable = false,
-            referencedColumnName = "category_name",
+            referencedColumnName = "category_id",
             foreignKey = @ForeignKey(
-                    name = "location_product_category_fk"
+                    name = "product_type_category_fk"
             )
     )
     private Category category;

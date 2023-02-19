@@ -22,7 +22,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Product implements Serializable{
+public class Product {
 
     @Id
     @SequenceGenerator(
@@ -97,9 +97,9 @@ public class Product implements Serializable{
     @JsonIgnore
     @ManyToOne
     @JoinColumn(
-            name = "company_code",
+            name = "company_id",
             nullable = false,
-            referencedColumnName = "company_code",
+            referencedColumnName = "company_id",
             foreignKey = @ForeignKey(
                     name = "company_product_fk"
             )
@@ -108,8 +108,8 @@ public class Product implements Serializable{
     @JsonIgnore
     @ManyToOne
     @JoinColumn(
-            name = "unit_name",
-            referencedColumnName = "unit_name",
+            name = "uom_id",
+            referencedColumnName = "uom_id",
             foreignKey = @ForeignKey(
                     name = "uom_product_fk"
             )

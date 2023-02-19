@@ -44,9 +44,9 @@ public class Rack {
     private String locationCode;
     @ManyToOne
     @JoinColumn(
-            name = "category_name",
+            name = "category_id",
             nullable = false,
-            referencedColumnName = "category_name",
+            referencedColumnName = "category_id",
             foreignKey = @ForeignKey(
                     name = "category_rack_fk"
             )
@@ -55,9 +55,9 @@ public class Rack {
 
     @ManyToOne
     @JoinColumn(
-            name = "location_code",
+            name = "location_id",
             nullable = false,
-            referencedColumnName = "location_code",
+            referencedColumnName = "location_id",
             foreignKey = @ForeignKey(
                     name = "location_rack_fk"
             )

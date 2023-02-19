@@ -19,7 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Category implements Serializable {
+public class Category {
 
     @Id
     @SequenceGenerator(

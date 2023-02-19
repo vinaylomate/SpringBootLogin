@@ -22,4 +22,9 @@ public class CategoryController {
     public List<Category> showAllCategory() {
         return categoryService.showAllCategory();
     }
+
+    @PutMapping("{id}")
+    public String updateCategory(@PathVariable("id") Long id,  @RequestBody Category category) {
+        return categoryService.updateCategory(id, category);
+    }
 }

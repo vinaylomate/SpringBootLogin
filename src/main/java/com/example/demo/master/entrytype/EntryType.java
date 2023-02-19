@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "entry_type")
-public class EntryType implements Serializable {
+public class EntryType {
 
     @Id
     @SequenceGenerator(

@@ -23,4 +23,12 @@ public class CategoryService {
         List<Category> categories = categoryRepository.findAll();
         return categories;
     }
+
+    public String updateCategory(Long id, Category category) {
+        Category updateCategory = categoryRepository.findById(id).get();
+        System.out.println(updateCategory);
+        updateCategory.setCategoryName(category.getCategoryName());
+        categoryRepository.save(updateCategory);
+        return "Category updated";
+    }
 }
