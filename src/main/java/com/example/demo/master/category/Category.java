@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +73,7 @@ public class Category {
             fetch = FetchType.LAZY    // this will not join the book table to any table
     )
     private List<Product> products = new ArrayList<>();
+
     public Category(String categoryName) {
         this.categoryName = categoryName;
     }

@@ -23,7 +23,7 @@ public class CategoryController {
         return categoryService.showAllCategory();
     }
 
-    @PutMapping("{id}")
+    @PutMapping("category/edit/{id}")
     public String updateCategory(@PathVariable("id") Long id,  @RequestBody Category category) {
         return categoryService.updateCategory(id, category);
     }

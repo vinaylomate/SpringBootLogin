@@ -1,5 +1,6 @@
 package com.example.demo.master.company;
 
+import com.example.demo.master.category.Category;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,5 +29,10 @@ public class CompanyController {
     @GetMapping(path = "getCompany/{companyCode}")
     public Company showCompany(@PathVariable String companyCode) {
         return companyService.showCompany(companyCode);
+    }
+
+    @PutMapping("company/edit/{id}")
+    public String updateCompany(@PathVariable("id") Long id,  @RequestBody Company company) {
+        return companyService.updateCompany(id, company);
     }
 }
